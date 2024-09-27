@@ -1,0 +1,498 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Site1.master.cs" Inherits="S_FACTOR_VMS.Site1" %>
+<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
+
+<!DOCTYPE html>
+
+<html>
+<head runat="server">
+    <!--For Searchable Datagrid-->
+    <script src="simple-datatables/jquery.js" type="text/javascript"></script>
+    <script src="simple-datatables/datatables.mark.js" type="text/javascript"></script>
+    <script src="simple-datatables/custom.js" type="text/javascript"></script>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Admin</title>
+    <!-- plugins:css -->
+    <link rel="stylesheet" href="vendors/ti-icons/css/themify-icons.css">
+    <link rel="stylesheet" href="vendors/base/vendor.bundle.base.css">
+    <!-- endinject -->
+    <!-- plugin css for this page -->
+    <!-- End plugin css for this page -->
+    <!-- inject:css -->
+    <link rel="stylesheet" href="css/style.css">
+    <!-- endinject -->
+    <link rel="shortcut icon" href="images/favicon.png" />
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap4.min.css" />
+    <script src="simple-datatables/jquery.dataTables.min.js" type="text/javascript"></script>
+    <%--<script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js" type="text/javascript"></script>--%>
+    <script src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap4.min.js" type="text/javascript"></script>
+    <style>
+        
+        body {
+            font-family: 'Montserrat', sans-serif;
+            font-size:12px;
+        }
+        .content-wrapper {
+            background: #FEDCD6 !important;
+        }
+        .h3,.h4,.h5,.h6{
+            font-family: 'Montserrat', sans-serif;
+        }
+        .card .card-body {
+            background: #FEF0ED;
+        }
+        .form-control, .form-select {
+            font-size: 12px;
+        }
+        .panel-body {
+            background: #FEF0ED;
+        }
+
+        .sidebar .nav .nav-item.active > .nav-link i {
+            color: #FF3E41;
+        }
+
+        .sidebar .nav .nav-item.active > .nav-link .menu-title {
+            color: #FF3E41;
+        }
+
+        .text-primary {
+            color: #FF3E41 !important;
+        }
+
+        .page-link {
+            color: #FF3E41;
+        }
+        a {
+            color: #FF3E41;
+        }
+
+        .btn {
+            font-size: 12px;
+            border-radius: 3px;
+            color: #FFFFFF;
+            background: #FF3E41;
+            border-color: #FF3E41;
+        }
+
+            .btn:focus {
+                border-color: #FF3E41;
+                box-shadow: 0 0 0 0.2rem rgba(255, 99, 71,.25);
+            }
+            .btn:hover {
+                background: #D2042D;
+                color: #FFFFFF;
+                border-color: #D2042D;
+            }
+
+        .table thead th {
+            font-size: 12px;
+        }
+        .sidebar {
+            background: #FEF0ED;
+            font-weight: 700;
+        }
+
+            .sidebar .nav .nav-item .nav-link {
+                color: slategray;
+            }
+
+        .container-fluid {
+            padding-right: 0;
+            padding-left: 0;
+        }
+
+        .modal-dialog {
+            max-width: 550px;
+        }
+
+        .page-item.active .page-link {
+            background-color: #FF3E41;
+            border-color: #FF3E41;
+        }
+        .row {
+            display: -ms-flexbox; /* IE10 */
+            display: flex;
+            -ms-flex-wrap: wrap; /* IE10 */
+            flex-wrap: wrap;
+            margin: 0 -16px;
+        }
+        .bg-primary {
+            background-color: #FF3E41 !important;
+        }
+        .container {
+            background-color: #FEF0ED;
+            padding: 5px 10px 10px 10px;
+            border: 1px solid #FEF0ED !important;
+            border-radius: 3px;
+        }
+
+        .col-25 {
+            -ms-flex: 25%; /* IE10 */
+            flex: 25%;
+        }
+
+        .col-50 {
+            -ms-flex: 50%; /* IE10 */
+            flex: 50%;
+        }
+
+        .col-75 {
+            -ms-flex: 75%; /* IE10 */
+            flex: 75%;
+        }
+
+        .col-SM {
+            display: block;
+            max-width: 450px;
+            margin: 0 auto;
+        }
+
+        .col-Min {
+            display: block;
+            max-width: 145px;
+            margin: 0 auto;
+            padding-right: 10px;
+            padding-left: 0;
+        }
+
+        .col-25,
+        .col-50,
+        .col-75 {
+            padding: 0 16px;
+        }
+
+        .table td {
+            padding:5px;
+            font-size:12px;
+            vertical-align: baseline;
+        }
+
+        th {
+            background-color: #23134F;
+            color: white;
+        }
+
+        .panel-default > .panel-heading {
+            color: #fff;
+            background-color: #4682B4;
+            border-color: #ddd;
+        }
+        /* Responsive layout - when the screen is less than 800px wide, make the two columns stack on top of each other instead of next to each other (also change the direction - make the "cart" column go on top) */
+        @media (max-width: 800px) {
+            .row {
+                flex-direction: column;
+            }
+
+            .col-25 {
+                margin-bottom: 20px;
+            }
+        }
+
+    </style>
+    <script type="text/javascript">
+        function SessionExpireAlert(timeout) {
+            var seconds = timeout / 1000;
+            document.getElementsByName("secondsIdle").innerHTML = seconds;
+            document.getElementsByName("seconds").innerHTML = seconds;
+            setInterval(function () {
+                seconds--;
+                document.getElementById("seconds").innerHTML = seconds;
+                document.getElementById("secondsIdle").innerHTML = seconds;
+            }, 1000);
+            setTimeout(function () {
+                //Show Popup before 60 seconds of timeout.
+                $find("mpeTimeout").show();
+            }, timeout - 60 * 1000);
+            setTimeout(function () {
+                window.location = "FrmIndex.aspx";
+            }, timeout);
+        };
+        function ResetSession() {
+            //Redirect to refresh Session.
+            window.location = window.location.href;
+        }
+    </script>
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+<body>
+    <div class="container-scroller">
+        <!-- partial:partials/_navbar.html -->
+        <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
+            <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
+                <a class="navbar-brand brand-logo me-5" href="FrmIndex.aspx">
+                    <%--<img src="images/logo.png" class="me-2" alt="logo" style="width: 140px; height: 45px; margin-left: 25px" />--%>
+                    <img src="images/4smeLogo.png" class="me-2" alt="logo" style="width: 140px; height: 45px; margin-left: 25px" />
+                </a>
+                <a class="navbar-brand brand-logo-mini" href="FrmIndex.aspx">
+                    <%--<img src="images/logo-mini.png" alt="logo" />--%>
+                    <img src="images/4smefourLogo.png" alt="logo" />
+                </a>
+            </div>
+            <div class="navbar-menu-wrapper d-flex align-items-center justify-content-end">
+                <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
+                    <span class="ti-view-list"></span>
+                </button>
+                <ul class="navbar-nav navbar-nav-right">
+                    <li class="nav-item nav-profile dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" id="profileDropdown">
+                            <img src="images/faces/face.jpg" alt="profile" />
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown">
+                            <a class="dropdown-item">
+                                <i class="ti-user text-primary"></i>
+                                <asp:Label ID="LblProfile" runat="server" Text=""></asp:Label>
+                            </a>
+                            <a id="NavLogout" class="dropdown-item" onserverclick="NavLogout_ServerClick" runat="server">
+                                <i class="ti-power-off text-primary"></i>
+                                Logout
+                            </a>
+                        </div>
+                    </li>
+                </ul>
+                <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button" data-toggle="offcanvas">
+                    <span class="ti-view-list"></span>
+                </button>
+            </div>
+        </nav>
+        <!-- partial -->
+        <div class="container-fluid page-body-wrapper">
+            <!-- partial:partials/_sidebar.html -->
+            <nav class="sidebar sidebar-offcanvas" id="sidebar">
+                <ul class="nav" id="NavAgent" runat="server">
+                    <li class="nav-item">
+                        <a class="nav-link" href="FrmAgentDashboard.aspx">
+                            <i class="ti-shield menu-icon"></i>
+                            <span class="menu-title">Dashboard</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="FrmAgentProfile.aspx">
+                            <i class="ti-user menu-icon"></i>
+                            <span class="menu-title">Profile</span>
+                        </a>
+                    </li>
+                    <li class="nav-item" runat="server" id="NavAgentInvoice">
+                        <a class="nav-link" href="frmagentinvoice.aspx">
+                            <i class="ti-clip menu-icon"></i>
+                            <span class="menu-title">invoice upload</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="FrmChangePassword.aspx">
+                            <i class="ti-lock menu-icon"></i>
+                            <span class="menu-title">Change Password</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" runat="server" onserverclick="NavLogout_ServerClick">
+                            <i class="ti-power-off menu-icon"></i>
+                            <span class="menu-title">Logout</span>
+                        </a>
+                    </li>
+                </ul>
+                <ul class="nav" id="NavAdmin" runat="server">
+                    <li class="nav-item">
+                        <a class="nav-link" href="FrmAdminDashboard.aspx">
+                            <i class="ti-shield menu-icon"></i>
+                            <span class="menu-title">Dashboard</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="FrmAdminUser.aspx">
+                            <i class="ti-world menu-icon"></i>
+                            <span class="menu-title">Uesr Master</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="FrmAgentProfileFromAdmin.aspx">
+                            <i class="ti-user menu-icon"></i>
+                            <span class="menu-title">Profile</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="FrmProfileApproval.aspx">
+                            <i class="ti-time menu-icon"></i>
+                            <span class="menu-title">Profile Approval</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="FrmAgreementApproval.aspx">
+                            <i class="ti-time menu-icon"></i>
+                            <span class="menu-title">Agreement Approval</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="FrmInvoiceApproval.aspx">
+                            <i class="ti-time menu-icon"></i>
+                            <span class="menu-title">Invoice Approval</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="FrmBlockInvoicing.aspx">
+                            <i class="ti-clipboard menu-icon"></i>
+                            <span class="menu-title">Block Invoicing</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="FrmViewInvoice.aspx">
+                            <i class="ti-clipboard menu-icon"></i>
+                            <span class="menu-title">Invoice</span>
+                        </a>
+                    </li>   
+                    <li class="nav-item">
+                        <a class="nav-link" href="FrmPendingPayment.aspx">
+                            <i class="ti-money menu-icon"></i>
+                            <span class="menu-title">Pending Payment</span>
+                        </a>
+                    </li>
+                    <%--<li class="nav-item">
+                        <a class="nav-link" href="FrmPaymentDetails.aspx">
+                            <i class="ti-wallet menu-icon"></i>
+                            <span class="menu-title">Payment Details</span>
+                        </a>
+                    </li>--%>
+                    <li class="nav-item">
+                        <a class="nav-link" data-bs-toggle="collapse" href="#Reports" aria-expanded="false" aria-controls="Reports">
+                            <i class="ti-eye menu-icon"></i>
+                            <span class="menu-title">Reports</span>
+                            <i class="menu-arrow"></i>
+                        </a>
+                        <div class="collapse" id="Reports">
+                            <ul class="nav flex-column sub-menu">
+                                <li class="nav-item"><a class="nav-link" href="FrmProfileView.aspx">Profile</a></li>
+                                <%--<li class="nav-item"><a class="nav-link" href="FrmMonthlyAtten.aspx">Monthly Attendance</a></li>--%>
+                                <%--<li class="nav-item"><a class="nav-link" href="FrmMonthlyAttenStaff.aspx">Staff Monthly Atten</a></li>--%>
+                                <%--<li class="nav-item"><a class="nav-link" href="FrmStaffReq.aspx">Staff Request Status</a></li>--%>
+                                <%--<li class="nav-item"><a class="nav-link" href="FrmLoginHistory.aspx">ESS Login Logs</a></li>--%>
+                            </ul>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" runat="server" onserverclick="NavLogout_ServerClick">
+                            <i class="ti-power-off menu-icon"></i>
+                            <span class="menu-title">Logout</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+            <!-- partial -->
+            <form id="form1" runat="server" class="main-panel">
+                <div class="content-wrapper">
+                    <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
+                    <h3 style="display:none">Session Idle:&nbsp;<span id="secondsIdle"></span>&nbsp;seconds.</h3>
+                    <asp:LinkButton ID="lnkFake" runat="server" />
+                    <cc1:ModalPopupExtender ID="mpeTimeout" BehaviorID="mpeTimeout" runat="server" PopupControlID="pnlPopup" TargetControlID="lnkFake"
+                        DropShadow="true"
+                        OkControlID="btnYes" CancelControlID="btnNo" BackgroundCssClass="modalBackground" OnOkScript="ResetSession()">
+                    </cc1:ModalPopupExtender>
+                    <asp:Panel ID="pnlPopup" runat="server" CssClass="modalPopup" Style="display: none;background-color:#DDDCE1;padding:5px; border: 1px solid; border-radius:5px">
+                        <div class="header" style="font-weight:700">
+                            Session Expiring!
+                        </div>
+                        <div class="body">
+                            Your Session will expire in&nbsp;<span id="seconds"></span>&nbsp;seconds.<br />
+                            Do you want to reset?
+                        </div>
+                        <br />
+                        <div class="footer" align="right">
+                            <asp:Button ID="btnYes" runat="server" Text="Yes" CssClass="yes btn btn-primary" />
+                            <asp:Button ID="btnNo" runat="server" Text="No" CssClass="no btn btn-danger" />
+                        </div>
+                    </asp:Panel>
+                    <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+                    </asp:ContentPlaceHolder>
+
+                    <!-- content-wrapper ends -->
+                    <!-- partial:partials/_footer.html -->
+
+                    <%--<div class="row px-3 mb-2">
+                        <div class="line"></div>
+                    </div>--%>
+                    <%--<footer class="footer-distributed">
+
+                        <div class="footer-left">
+                            <h3>Company<span>logo</span></h3>
+                            <p class="footer-links">
+                                <a href="#" class="link-1">Home</a>
+
+                                <a href="#">Blog</a>
+
+                                <a href="#">Pricing</a>
+
+                                <a href="#">About</a>
+
+                                <a href="#">Faq</a>
+
+                                <a href="#">Contact</a>
+                            </p>
+
+                            <p class="footer-company-name">Company Name © 2015</p>
+                        </div>
+
+                        <div class="footer-center">
+                            <div>
+                                <i class="fa fa-map-marker"></i>
+                                <p><span>444 S. Cedros Ave</span> Solana Beach, California</p>
+                            </div>
+
+                            <div>
+                                <i class="fa fa-phone"></i>
+                                <p>+91 89818 61567</p>
+                            </div>
+
+                            <div>
+                                <i class="fa fa-envelope"></i>
+                                <p><a href="#">shamimindiaautiscenter@org</a></p>
+                            </div>
+                        </div>
+
+                        <div class="footer-right">
+
+                            <p class="footer-company-about">
+                                <span>About the company</span>
+                            </p>
+
+                            <div class="footer-icons">
+                                <a href="#"><i class="fa fa-facebook"></i></a>
+                                <a href="#"><i class="fa fa-twitter"></i></a>
+                                <a href="#"><i class="fa fa-linkedin"></i></a>
+                                <a href="#"><i class="fa fa-github"></i></a>
+                            </div>
+                        </div>
+                    </footer>--%>
+                    <!-- partial -->
+                </div>
+            </form>
+            <!-- main-panel ends -->
+        </div>
+        <!-- page-body-wrapper ends -->
+    </div>
+    <!-- container-scroller -->
+
+    <!-- plugins:js -->
+    <script src="vendors/base/vendor.bundle.base.js"></script>
+    <!-- endinject -->
+    <!-- Plugin js for this page-->
+    <script src="vendors/chart.js/Chart.min.js"></script>
+    <script src="js/jquery.cookie.js" type="text/javascript"></script>
+    <!-- End plugin js for this page-->
+    <!-- inject:js -->
+    <script src="js/off-canvas.js"></script>
+    <script src="js/hoverable-collapse.js"></script>
+    <script src="js/template.js"></script>
+    <script src="js/todolist.js"></script>
+    <!-- endinject -->
+    <!-- Custom js for this page-->
+    <script src="js/dashboard.js"></script>
+    <!-- End custom js for this page-->
+
+</body>
+</html>
